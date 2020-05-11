@@ -106,5 +106,22 @@ parent.addEventListener('click', function(){
     }
   }
   getRandomProduct();  
-  
+
 });
+
+
+// Banana Slicer had 3 votes and was shown 5 times
+// listItem.textcontent = (`${this.allProducts[i].title} had ${this.allProducts[i].votes} and was shown ${this.allProducts[1]} times`)
+
+Product.prototype.renderList = function(){
+  var unorderedList = document.createElement('ul');
+  var title = document.createElement('p');
+  title.textContent = ('Totals');
+  for (var i = 0; i < this.allProducts.length; i++){
+    var listItem = document.createElement('li');
+    listItem.textContent = (`${this.allProducts[i].title} had ${this.allProducts[i].votes} and was shown ${this.allProducts[1]} times`);
+  }
+  parent.appendChild(unorderedList);
+};
+
+Product.renderList();
