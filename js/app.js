@@ -6,6 +6,8 @@ var parent = document.getElementById('product');
 
 var allProducts = [];
 
+var currentRound = 0;
+
 
 // Constructor Function
 function Product(src, alt, title){
@@ -81,14 +83,14 @@ function getRandomProduct(){
 getRandomProduct();
 
 
+// Lab 11 Problem 3
 // Function 25 Rounds Of Voting
 function roundsOfVoting(){
-  var currentRound = 0;
   for(var i = 0; i < 25; i++){
     currentRound++;
     console.log('the current round number is ', currentRound);
   } 
-  if (i == '24'){
+  if (currentRound == '24'){
     alert('Thanks for participating!');
   }
 }
@@ -110,6 +112,7 @@ parent.addEventListener('click', function(){
 });
 
 
+// Lab 11 Problem 4 - Results after voting has concluded
 // Banana Slicer had 3 votes and was shown 5 times
 // listItem.textcontent = (`${this.allProducts[i].title} had ${this.allProducts[i].votes} and was shown ${this.allProducts[1]} times`)
 
