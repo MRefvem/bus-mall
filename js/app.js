@@ -6,6 +6,9 @@ var parent = document.getElementById('product');
 
 var allProducts = [];
 
+var totalNumberOfRounds = 25;
+
+var currentRound = 0;
 
 // Constructor Function
 function Product(src, alt, title){
@@ -79,6 +82,20 @@ function getRandomProduct(){
 }
 
 getRandomProduct();
+
+
+// Function 25 Rounds Of Voting
+function roundsOfVoting(){
+  for(var i = 0; i < totalNumberOfRounds.length; i++){
+    currentRound++;
+  } 
+  if(currentRound === totalNumberOfRounds){
+      alert('Thank you!');
+  }
+}
+
+
+roundsOfVoting();
 
 
 // Function Handle Click
