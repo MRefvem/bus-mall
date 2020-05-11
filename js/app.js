@@ -8,7 +8,7 @@ var allProducts = [];
 
 
 // Constructor Function
-function product(src, alt, title){
+function Product(src, alt, title){
   this.filePath = src;
   this.alt = alt;
   this.title = title;
@@ -19,29 +19,29 @@ function product(src, alt, title){
 
 
 // Object Instances
-new product('img/bag.jpg', 'bag', 'bag');
-new product('img/banana.jpg', 'banana', 'banana');
-new product('img/bathroom.jpg', 'bathroom', 'bathroom');
-new product('img/boots.jpg', 'boots', 'boots');
-new product('img/breakfast.jpg', 'breakfast', 'breakfast');
-new product('img/bubblegum.jpg', 'bubblegum', 'bubblegum');
-new product('img/chair.jpg', 'chair', 'chair');
-new product('img/cthulhu.jpg', 'cthulhu', 'cthulhu');
-new product('img/dog-duck.jpg', 'dog-duck', 'dog-duck');
-new product('img/dragon.jpg', 'dragon', 'dragon');
-new product('img/pen.jpg', 'pen', 'pen');
-new product('img/pet-sweep.jpg', 'pet-sweep', 'pet-sweep');
-new product('img/scissors.jpg', 'scissors', 'scissors');
-new product('img/shark.jpg', 'shark', 'shark');
-new product('img/sweep.png', 'sweep', 'sweep');
-new product('img/tauntaun.jpg', 'tauntaun', 'tauntaun');
-new product('img/unicorn.jpg', 'unicorn', 'unicorn');
-new product('img/usb.gif', 'usb', 'usb');
-new product('img/water-can.jpg', 'water-can', 'water-can');
+new Product('img/bag.jpg', 'bag', 'bag');
+new Product('img/banana.jpg', 'banana', 'banana');
+new Product('img/bathroom.jpg', 'bathroom', 'bathroom');
+new Product('img/boots.jpg', 'boots', 'boots');
+new Product('img/breakfast.jpg', 'breakfast', 'breakfast');
+new Product('img/bubblegum.jpg', 'bubblegum', 'bubblegum');
+new Product('img/chair.jpg', 'chair', 'chair');
+new Product('img/cthulhu.jpg', 'cthulhu', 'cthulhu');
+new Product('img/dog-duck.jpg', 'dog-duck', 'dog-duck');
+new Product('img/dragon.jpg', 'dragon', 'dragon');
+new Product('img/pen.jpg', 'pen', 'pen');
+new Product('img/pet-sweep.jpg', 'pet-sweep', 'pet-sweep');
+new Product('img/scissors.jpg', 'scissors', 'scissors');
+new Product('img/shark.jpg', 'shark', 'shark');
+new Product('img/sweep.png', 'sweep', 'sweep');
+new Product('img/tauntaun.jpg', 'tauntaun', 'tauntaun');
+new Product('img/unicorn.jpg', 'unicorn', 'unicorn');
+new Product('img/usb.gif', 'usb', 'usb');
+new Product('img/water-can.jpg', 'water-can', 'water-can');
 
 
 // Our Method To Set Image To Page
-product.prototype.setImage = function(){
+Product.prototype.setImage = function(){
   var imageElement = document.createElement('img');
   imageElement.setAttribute('src', this.filePath);
   imageElement.setAttribute('alt', this.alt);
@@ -52,7 +52,7 @@ product.prototype.setImage = function(){
 
 // Helper Function
 function randomNumber(min=0, max){
-  return Math.floor(math.random() * (max - min + 1)) + min;
+  return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
 
@@ -61,11 +61,33 @@ function getRandomProduct(){
   parent.textContent = '';
   var randomIndex = randomNumber(0, allProducts.length-1);
   var secondRandomIndex = randomNumber(0, allProducts.length-1);
+  var thirdRandomIndex = randomNumber(0, allProducts.length-1);
   while(randomIndex === secondRandomIndex){
     secondRandomIndex = randomNumber(0, allProducts.length-1);
   }
+  while(randomIndex === thirdRandomIndex || secondRandomIndex === thirdRandomIndex){
+    thirdRandomIndex = randomNumber(0, allProducts.length-1);
+  }
   allProducts[randomIndex].setImage();
+  allProducts[randomIndex].views++;
+
   allProducts[secondRandomIndex].setImage();
+  allProducts[secondRandomIndex].views++;
+
+  allProducts[thirdRandomIndex].setImage();
+  allProducts[thirdRandomIndex].views++;
 }
 
 getRandomProduct();
+
+
+// Function Handle Click
+parent.addEventListener('click', function(){
+  var titleOfProductClicked = event.target.title;
+  for(var i = 0; i < allProducts.length; i++){
+    if(titleOfProductClicked === allProducts[i].title){
+      allProducts[i].votes++;
+    }
+  }
+  getRandomProduct();  
+});
