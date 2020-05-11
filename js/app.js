@@ -6,9 +6,6 @@ var parent = document.getElementById('product');
 
 var allProducts = [];
 
-var totalNumberOfRounds = 25;
-
-var currentRound = 0;
 
 // Constructor Function
 function Product(src, alt, title){
@@ -86,11 +83,13 @@ getRandomProduct();
 
 // Function 25 Rounds Of Voting
 function roundsOfVoting(){
-  for(var i = 0; i < totalNumberOfRounds.length; i++){
+  var currentRound = 0;
+  for(var i = 0; i < 25; i++){
     currentRound++;
+    console.log('the current round number is ', currentRound);
   } 
-  if(currentRound === totalNumberOfRounds){
-      alert('Thank you!');
+  if (i == '24'){
+    alert('Thanks for participating!');
   }
 }
 
@@ -107,4 +106,5 @@ parent.addEventListener('click', function(){
     }
   }
   getRandomProduct();  
+  
 });
