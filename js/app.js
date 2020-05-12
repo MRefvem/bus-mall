@@ -85,6 +85,7 @@ function getRandomProduct(){
 getRandomProduct();
 
 
+// Function Handle Click
 function eventHandler(){
   var titleOfProductClicked = event.target.title;
   for(var i = 0; i < allProducts.length; i++){
@@ -103,10 +104,9 @@ function eventHandler(){
 }
 
 
-// Function Handle Click
+
+// Event Listener
 parent.addEventListener('click', eventHandler);
-    // remove the event listener (look up MDN remove event listener)
-    // pay attention to the first two things that it wants so it knows what it is listening too
 
 
 // Lab 11 Problem 4 - Results after voting has concluded
