@@ -8,11 +8,13 @@ var allProducts = [];
 
 var currentRound = 0;
 
-var maxRounds = 25;
+var maxRounds = 5;
 
 var names = [];
 
 var votes = [];
+
+var views = [];
 
 // Constructor Function
 function Product(src, alt, title){
@@ -64,6 +66,7 @@ function randomNumber(min=0, max){
 
 
 // Render Three Random Images To The DOM From Array
+// LAB 12: Update your algorithm so that new products are generated, confirm tht these products are not duplicates from the immediate previous set.
 function getRandomProduct(){
   parent.textContent = '';
   var randomIndex = randomNumber(0, allProducts.length-1);
@@ -118,7 +121,7 @@ parent.addEventListener('click', eventHandler);
 function renderList(){
   var unorderedList = document.createElement('ul');
   var title = document.createElement('p');
-  title.textContent = ('Totals');
+  title.textContent = ('Results');
   unorderedList.appendChild(title);
   for (var i = 0; i < allProducts.length; i++){
     var listItem = document.createElement('li');
@@ -137,6 +140,7 @@ function makeNamesArray(){
   for(var i = 0; i < allProducts.length; i++){
     names.push(allProducts[i].title);
     votes.push(allProducts[i].votes);
+    views.push(allProducts[i].views);
   }
   generateChart();
 }
@@ -156,7 +160,20 @@ function generateChart(){
                   'rgba(255, 206, 86, 0.2)',
                   'rgba(75, 192, 192, 0.2)',
                   'rgba(153, 102, 255, 0.2)',
-                  'rgba(255, 159, 64, 0.2)'
+                  'rgba(255, 159, 64, 0.2)',
+                  'rgba(255, 99, 132, 0.2)',
+                  'rgba(54, 162, 235, 0.2)',
+                  'rgba(255, 206, 86, 0.2)',
+                  'rgba(75, 192, 192, 0.2)',
+                  'rgba(153, 102, 255, 0.2)',
+                  'rgba(255, 159, 64, 0.2)',
+                  'rgba(255, 99, 132, 0.2)',
+                  'rgba(54, 162, 235, 0.2)',
+                  'rgba(255, 206, 86, 0.2)',
+                  'rgba(75, 192, 192, 0.2)',
+                  'rgba(153, 102, 255, 0.2)',
+                  'rgba(255, 159, 64, 0.2)',
+                  'rgba(255, 99, 132, 0.2)'
               ],
               borderColor: [
                   'rgba(255, 99, 132, 1)',
@@ -164,7 +181,20 @@ function generateChart(){
                   'rgba(255, 206, 86, 1)',
                   'rgba(75, 192, 192, 1)',
                   'rgba(153, 102, 255, 1)',
-                  'rgba(255, 159, 64, 1)'
+                  'rgba(255, 159, 64, 1)',
+                  'rgba(255, 99, 132, 1)',
+                  'rgba(54, 162, 235, 1)',
+                  'rgba(255, 206, 86, 1)',
+                  'rgba(75, 192, 192, 1)',
+                  'rgba(153, 102, 255, 1)',
+                  'rgba(255, 159, 64, 1)',
+                  'rgba(255, 99, 132, 1)',
+                  'rgba(54, 162, 235, 1)',
+                  'rgba(255, 206, 86, 1)',
+                  'rgba(75, 192, 192, 1)',
+                  'rgba(153, 102, 255, 1)',
+                  'rgba(255, 159, 64, 1)',
+                  'rgba(255, 99, 132, 1)'
               ],
               borderWidth: 1
           }]

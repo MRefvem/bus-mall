@@ -1,10 +1,37 @@
 img {
-  width: 400px;
+  width: 20%;
 }
 
-
+body{
+  max-width: 960px;
+  margin: auto;
+}
 canvas{
   border: 2px solid black;
   height: 400px;
   width: 400px;
+}
+
+.chart{
+  border: 2px solid black;
+  width: 60%;
+}
+
+header{
+  margin-top: 20px;
+  height: 200px;
+  background-image: url(css/downtown-background.jpg);
+}
+
+#logo{
+  float: left;
+}
+
+h1{
+  font-size: 300%;
+  font-family: 'Alfa Slab One', cursive;
+}
+
+#product{
+  padding: 100px;
 }
