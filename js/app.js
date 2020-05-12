@@ -67,27 +67,6 @@ function randomNumber(min=0, max){
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-// --------------- wip ---------------
-// function getRandomProduct(){
-//   parent.textContent = '';
-//   var randomIndex = randomNumber(0, allProducts.length-1);
-//   var secondRandomIndex = randomNumber(0, allProducts.length-1);
-//   var thirdRandomIndex = randomNumber(0, allProducts.length-1);
-//   while(randomIndex === secondRandomIndex){
-//     secondRandomIndex = randomNumber(0, allProducts.length-1);
-//   }
-//   while(randomIndex === thirdRandomIndex || secondRandomIndex === thirdRandomIndex){
-//     thirdRandomIndex = randomNumber(0, allProducts.length-1);
-//   }
-//   allProducts[randomIndex].setImage();
-//   allProducts[randomIndex].views++;
-  
-//   allProducts[secondRandomIndex].setImage();
-//   allProducts[secondRandomIndex].views++;
-  
-//   allProducts[thirdRandomIndex].setImage();
-//   allProducts[thirdRandomIndex].views++;
-// }
 
 
 // Render Three Random Images To The DOM From Array
