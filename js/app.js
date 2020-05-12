@@ -8,7 +8,7 @@ var allProducts = [];
 
 var currentRound = 0;
 
-var maxRounds = 5;
+var maxRounds = 25;
 
 
 // Constructor Function
@@ -23,25 +23,25 @@ function Product(src, alt, title){
 
 
 // Object Instances
-new Product('img/bag.jpg', 'bag', 'bag');
-new Product('img/banana.jpg', 'banana', 'banana');
-new Product('img/bathroom.jpg', 'bathroom', 'bathroom');
-new Product('img/boots.jpg', 'boots', 'boots');
-new Product('img/breakfast.jpg', 'breakfast', 'breakfast');
-new Product('img/bubblegum.jpg', 'bubblegum', 'bubblegum');
-new Product('img/chair.jpg', 'chair', 'chair');
-new Product('img/cthulhu.jpg', 'cthulhu', 'cthulhu');
-new Product('img/dog-duck.jpg', 'dog-duck', 'dog-duck');
-new Product('img/dragon.jpg', 'dragon', 'dragon');
-new Product('img/pen.jpg', 'pen', 'pen');
-new Product('img/pet-sweep.jpg', 'pet-sweep', 'pet-sweep');
-new Product('img/scissors.jpg', 'scissors', 'scissors');
-new Product('img/shark.jpg', 'shark', 'shark');
-new Product('img/sweep.png', 'sweep', 'sweep');
-new Product('img/tauntaun.jpg', 'tauntaun', 'tauntaun');
-new Product('img/unicorn.jpg', 'unicorn', 'unicorn');
-new Product('img/usb.gif', 'usb', 'usb');
-new Product('img/water-can.jpg', 'water-can', 'water-can');
+new Product('img/bag.jpg', 'bag', 'Bag');
+new Product('img/banana.jpg', 'banana', 'Banana');
+new Product('img/bathroom.jpg', 'bathroom', 'Bathroom');
+new Product('img/boots.jpg', 'boots', 'Boots');
+new Product('img/breakfast.jpg', 'breakfast', 'Breakfast');
+new Product('img/bubblegum.jpg', 'bubblegum', 'Bubblegum');
+new Product('img/chair.jpg', 'chair', 'Chair');
+new Product('img/cthulhu.jpg', 'cthulhu', 'Cthulhu');
+new Product('img/dog-duck.jpg', 'dog-duck', 'Dog-Duck');
+new Product('img/dragon.jpg', 'dragon', 'Dragon');
+new Product('img/pen.jpg', 'pen', 'Pen');
+new Product('img/pet-sweep.jpg', 'pet-sweep', 'Pet-Sweep');
+new Product('img/scissors.jpg', 'scissors', 'Scissors');
+new Product('img/shark.jpg', 'shark', 'Shark');
+new Product('img/sweep.png', 'sweep', 'Sweep');
+new Product('img/tauntaun.jpg', 'tauntaun', 'Tauntaun');
+new Product('img/unicorn.jpg', 'unicorn', 'Unicorn');
+new Product('img/usb.gif', 'usb', 'USB');
+new Product('img/water-can.jpg', 'water-can', 'Water-Can');
 
 
 // Our Method To Set Image To Page
@@ -85,24 +85,7 @@ function getRandomProduct(){
 getRandomProduct();
 
 
-// Lab 11 Problem 3
-// Function 25 Rounds Of Voting
-// function roundsOfVoting(){
-//   for(var i = 0; i < 25; i++){
-//     console.log('the current round number is ', currentRound);
-//   } 
-//   if (currentRound == '24'){
-//     alert('Thanks for participating!');
-//   }
-// }
-
-
-// roundsOfVoting();
-
-
-// Function Handle Click
-// extract a new function from my parameter here
-parent.addEventListener('click', function(){
+function eventHandler(){
   var titleOfProductClicked = event.target.title;
   for(var i = 0; i < allProducts.length; i++){
     if(titleOfProductClicked === allProducts[i].title){
@@ -113,17 +96,20 @@ parent.addEventListener('click', function(){
   if (currentRound < maxRounds){
     getRandomProduct();
   } else if (currentRound === maxRounds){
-    console.log('max rounds', maxRounds)
+    console.log('max rounds', maxRounds);
     renderList();
+    parent.removeEventListener('click', eventHandler);
+  }
+}
+
+
+// Function Handle Click
+parent.addEventListener('click', eventHandler);
     // remove the event listener (look up MDN remove event listener)
     // pay attention to the first two things that it wants so it knows what it is listening too
-  }
-});
 
 
 // Lab 11 Problem 4 - Results after voting has concluded
-// Banana Slicer had 3 votes and was shown 5 times
-// listItem.textcontent = (`${this.allProducts[i].title} had ${this.allProducts[i].votes} and was shown ${this.allProducts[1]} times`)
 
 function renderList(){
   var unorderedList = document.createElement('ul');
@@ -132,7 +118,7 @@ function renderList(){
   unorderedList.appendChild(title);
   for (var i = 0; i < allProducts.length; i++){
     var listItem = document.createElement('li');
-    listItem.textContent = (`${allProducts[i].title} had ${allProducts[i].votes} and was shown ${allProducts[i].views} times`);
+    listItem.textContent = (`${allProducts[i].title} had ${allProducts[i].votes} votes and was shown ${allProducts[i].views} times`);
     unorderedList.appendChild(listItem);
   }
   parent.appendChild(unorderedList);
