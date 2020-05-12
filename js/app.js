@@ -4,6 +4,8 @@
 // Global Variables
 var parent = document.getElementById('product');
 
+var parentList = document.getElementById('listParent');
+
 var allProducts = [];
 
 var currentRound = 0;
@@ -118,7 +120,6 @@ function eventHandler(){
     getRandomProduct();
   } else if (currentRound === maxRounds){
     console.log('max rounds', maxRounds);
-    // renderList();
     parent.removeEventListener('click', eventHandler);
     makeNamesArray();
   }
@@ -134,15 +135,15 @@ parent.addEventListener('click', eventHandler);
 
 function renderList(){
   var unorderedList = document.createElement('ul');
-  var title = document.createElement('p');
+  var title = document.createElement('h2');
   title.textContent = ('Results');
   unorderedList.appendChild(title);
   for (var i = 0; i < allProducts.length; i++){
     var listItem = document.createElement('li');
-    listItem.textContent = (`${allProducts[i].title} had ${allProducts[i].votes} votes and was shown ${allProducts[i].views} times`);
+    listItem.textContent = (`- ${allProducts[i].title} had ${allProducts[i].votes} votes and was shown ${allProducts[i].views} times`);
     unorderedList.appendChild(listItem);
   }
-  parent.appendChild(unorderedList);
+  parentList.appendChild(unorderedList);
 };
 
 
@@ -157,6 +158,7 @@ function makeNamesArray(){
     views.push(allProducts[i].views);
   }
   generateChart();
+  renderList();
 }
 
 
