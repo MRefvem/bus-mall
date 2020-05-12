@@ -8,7 +8,7 @@ var allProducts = [];
 
 var currentRound = 0;
 
-var maxRounds = 5;
+var maxRounds = 25;
 
 var names = [];
 
@@ -78,6 +78,7 @@ function getRandomProduct(){
   while(randomIndex === thirdRandomIndex || secondRandomIndex === thirdRandomIndex){
     thirdRandomIndex = randomNumber(0, allProducts.length-1);
   }
+  // record the three indexes so that next time we make sure they weren't part of the last three
   allProducts[randomIndex].setImage();
   allProducts[randomIndex].views++;
   
@@ -104,7 +105,7 @@ function eventHandler(){
     getRandomProduct();
   } else if (currentRound === maxRounds){
     console.log('max rounds', maxRounds);
-    renderList();
+    // renderList();
     parent.removeEventListener('click', eventHandler);
     makeNamesArray();
   }
@@ -145,6 +146,9 @@ function makeNamesArray(){
   generateChart();
 }
 
+
+// My Chart
+// Needs to display the number of times a product was viewed
 function generateChart(){
   var ctx = document.getElementById('myChart').getContext('2d');
   var myChart = new Chart(ctx, {
@@ -197,9 +201,58 @@ function generateChart(){
                   'rgba(255, 99, 132, 1)'
               ],
               borderWidth: 1
-          }]
+          },
+          {
+            label: '# of Views',
+            data: views,
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)',
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)',
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)',
+                'rgba(255, 99, 132, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)',
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)',
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)',
+                'rgba(255, 99, 132, 1)'
+            ],
+            borderWidth: 1
+        }]
       },
       options: {
+        responsive: true,
+        maintainAspectRatio: false,
           scales: {
               yAxes: [{
                   ticks: {

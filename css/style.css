@@ -1,5 +1,5 @@
 img {
-  width: 20%;
+  width: 30%;
 }
 
 body{
@@ -8,8 +8,8 @@ body{
 }
 canvas{
   border: 2px solid black;
-  height: 400px;
-  width: 400px;
+  height: 800px !important;
+  width: 100% !important;
 }
 
 .chart{
@@ -20,11 +20,11 @@ canvas{
 header{
   margin-top: 20px;
   height: 200px;
-  background-image: url(css/downtown-background.jpg);
 }
 
 #logo{
   float: left;
+  width: 20%;
 }
 
 h1{
@@ -34,4 +34,8 @@ h1{
 
 #product{
   padding: 100px;
+}
+
+footer{
+  height: 200px;
 }
