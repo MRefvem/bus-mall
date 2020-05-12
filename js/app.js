@@ -8,6 +8,8 @@ var allProducts = [];
 
 var currentRound = 0;
 
+var maxRounds = 5;
+
 
 // Constructor Function
 function Product(src, alt, title){
@@ -72,10 +74,10 @@ function getRandomProduct(){
   }
   allProducts[randomIndex].setImage();
   allProducts[randomIndex].views++;
-
+  
   allProducts[secondRandomIndex].setImage();
   allProducts[secondRandomIndex].views++;
-
+  
   allProducts[thirdRandomIndex].setImage();
   allProducts[thirdRandomIndex].views++;
 }
@@ -85,21 +87,21 @@ getRandomProduct();
 
 // Lab 11 Problem 3
 // Function 25 Rounds Of Voting
-function roundsOfVoting(){
-  for(var i = 0; i < 25; i++){
-    currentRound++;
-    console.log('the current round number is ', currentRound);
-  } 
-  if (currentRound == '24'){
-    alert('Thanks for participating!');
-  }
-}
+// function roundsOfVoting(){
+//   for(var i = 0; i < 25; i++){
+//     console.log('the current round number is ', currentRound);
+//   } 
+//   if (currentRound == '24'){
+//     alert('Thanks for participating!');
+//   }
+// }
 
 
-roundsOfVoting();
+// roundsOfVoting();
 
 
 // Function Handle Click
+// extract a new function from my parameter here
 parent.addEventListener('click', function(){
   var titleOfProductClicked = event.target.title;
   for(var i = 0; i < allProducts.length; i++){
@@ -107,8 +109,15 @@ parent.addEventListener('click', function(){
       allProducts[i].votes++;
     }
   }
-  getRandomProduct();  
-
+  currentRound++;
+  if (currentRound < maxRounds){
+    getRandomProduct();
+  } else if (currentRound === maxRounds){
+    console.log('max rounds', maxRounds)
+    renderList();
+    // remove the event listener (look up MDN remove event listener)
+    // pay attention to the first two things that it wants so it knows what it is listening too
+  }
 });
 
 
@@ -116,15 +125,16 @@ parent.addEventListener('click', function(){
 // Banana Slicer had 3 votes and was shown 5 times
 // listItem.textcontent = (`${this.allProducts[i].title} had ${this.allProducts[i].votes} and was shown ${this.allProducts[1]} times`)
 
-Product.prototype.renderList = function(){
+function renderList(){
   var unorderedList = document.createElement('ul');
   var title = document.createElement('p');
   title.textContent = ('Totals');
-  for (var i = 0; i < this.allProducts.length; i++){
+  unorderedList.appendChild(title);
+  for (var i = 0; i < allProducts.length; i++){
     var listItem = document.createElement('li');
-    listItem.textContent = (`${this.allProducts[i].title} had ${this.allProducts[i].votes} and was shown ${this.allProducts[1]} times`);
+    listItem.textContent = (`${allProducts[i].title} had ${allProducts[i].votes} and was shown ${allProducts[i].views} times`);
+    unorderedList.appendChild(listItem);
   }
   parent.appendChild(unorderedList);
 };
 
-Product.renderList();
