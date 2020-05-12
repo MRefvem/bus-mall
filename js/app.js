@@ -23,28 +23,28 @@ function Product(src, alt, title){
 
 
 // Object Instances
-new Product('img/bag.jpg', 'bag', 'Bag');
-new Product('img/banana.jpg', 'banana', 'Banana');
-new Product('img/bathroom.jpg', 'bathroom', 'Bathroom');
-new Product('img/boots.jpg', 'boots', 'Boots');
-new Product('img/breakfast.jpg', 'breakfast', 'Breakfast');
-new Product('img/bubblegum.jpg', 'bubblegum', 'Bubblegum');
-new Product('img/chair.jpg', 'chair', 'Chair');
-new Product('img/cthulhu.jpg', 'cthulhu', 'Cthulhu');
+new Product('img/bag.jpg', 'bag', 'R2D2 Bag');
+new Product('img/banana.jpg', 'banana', 'Banana Cutter');
+new Product('img/bathroom.jpg', 'bathroom', 'Bathroom iPad Station');
+new Product('img/boots.jpg', 'boots', 'Sandal Rain Boots');
+new Product('img/breakfast.jpg', 'breakfast', 'Breakfast Machine');
+new Product('img/bubblegum.jpg', 'bubblegum', 'Meatball Bubblegum');
+new Product('img/chair.jpg', 'chair', 'Novelty Chair');
+new Product('img/cthulhu.jpg', 'cthulhu', 'Cthulhu Alien');
 new Product('img/dog-duck.jpg', 'dog-duck', 'Dog-Duck');
-new Product('img/dragon.jpg', 'dragon', 'Dragon');
-new Product('img/pen.jpg', 'pen', 'Pen');
-new Product('img/pet-sweep.jpg', 'pet-sweep', 'Pet-Sweep');
-new Product('img/scissors.jpg', 'scissors', 'Scissors');
-new Product('img/shark.jpg', 'shark', 'Shark');
-new Product('img/sweep.png', 'sweep', 'Sweep');
-new Product('img/tauntaun.jpg', 'tauntaun', 'Tauntaun');
-new Product('img/unicorn.jpg', 'unicorn', 'Unicorn');
-new Product('img/usb.gif', 'usb', 'USB');
-new Product('img/water-can.jpg', 'water-can', 'Water-Can');
+new Product('img/dragon.jpg', 'dragon', 'Dragon Meat');
+new Product('img/pen.jpg', 'pen', 'Pen Utensils');
+new Product('img/pet-sweep.jpg', 'pet-sweep', 'Pet Sweeper');
+new Product('img/scissors.jpg', 'scissors', 'Pizza Scissors');
+new Product('img/shark.jpg', 'shark', 'Shark Sleeping Bag');
+new Product('img/sweep.png', 'sweep', 'Baby Sweep');
+new Product('img/tauntaun.jpg', 'tauntaun', 'Tauntaun Sleeping Bad');
+new Product('img/unicorn.jpg', 'unicorn', 'Unicorn Meat');
+new Product('img/usb.gif', 'usb', 'Lizard USB');
+new Product('img/water-can.jpg', 'water-can', 'Novelty Water Can');
 
 
-// Our Method To Set Image To Page
+// Our Method To Set Image Group To Page
 Product.prototype.setImage = function(){
   var imageElement = document.createElement('img');
   imageElement.setAttribute('src', this.filePath);
@@ -85,6 +85,7 @@ function getRandomProduct(){
 getRandomProduct();
 
 
+// Function Handle Click
 function eventHandler(){
   var titleOfProductClicked = event.target.title;
   for(var i = 0; i < allProducts.length; i++){
@@ -103,10 +104,8 @@ function eventHandler(){
 }
 
 
-// Function Handle Click
+// Event Listener
 parent.addEventListener('click', eventHandler);
-    // remove the event listener (look up MDN remove event listener)
-    // pay attention to the first two things that it wants so it knows what it is listening too
 
 
 // Lab 11 Problem 4 - Results after voting has concluded
