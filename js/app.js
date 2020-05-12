@@ -16,6 +16,9 @@ var votes = [];
 
 var views = [];
 
+var uniqueIndexArray = [];
+
+
 // Constructor Function
 function Product(src, alt, title){
   this.filePath = src;
@@ -64,29 +67,60 @@ function randomNumber(min=0, max){
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
+// --------------- wip ---------------
+// function getRandomProduct(){
+//   parent.textContent = '';
+//   var randomIndex = randomNumber(0, allProducts.length-1);
+//   var secondRandomIndex = randomNumber(0, allProducts.length-1);
+//   var thirdRandomIndex = randomNumber(0, allProducts.length-1);
+//   while(randomIndex === secondRandomIndex){
+//     secondRandomIndex = randomNumber(0, allProducts.length-1);
+//   }
+//   while(randomIndex === thirdRandomIndex || secondRandomIndex === thirdRandomIndex){
+//     thirdRandomIndex = randomNumber(0, allProducts.length-1);
+//   }
+//   allProducts[randomIndex].setImage();
+//   allProducts[randomIndex].views++;
+  
+//   allProducts[secondRandomIndex].setImage();
+//   allProducts[secondRandomIndex].views++;
+  
+//   allProducts[thirdRandomIndex].setImage();
+//   allProducts[thirdRandomIndex].views++;
+// }
+
 
 // Render Three Random Images To The DOM From Array
 // LAB 12: Update your algorithm so that new products are generated, confirm tht these products are not duplicates from the immediate previous set.
+function getRandomIndex(){
+  var index = randomNumber(0, allProducts.length-1);
+  while(uniqueIndexArray.includes(index)){
+     index = randomNumber(0, allProducts.length-1);
+  }
+  uniqueIndexArray.push(index);
+  if(uniqueIndexArray.length > 6){
+    uniqueIndexArray.shift();
+  }
+  return index;
+}
+
+
 function getRandomProduct(){
   parent.textContent = '';
-  var randomIndex = randomNumber(0, allProducts.length-1);
-  var secondRandomIndex = randomNumber(0, allProducts.length-1);
-  var thirdRandomIndex = randomNumber(0, allProducts.length-1);
-  while(randomIndex === secondRandomIndex){
-    secondRandomIndex = randomNumber(0, allProducts.length-1);
-  }
-  while(randomIndex === thirdRandomIndex || secondRandomIndex === thirdRandomIndex){
-    thirdRandomIndex = randomNumber(0, allProducts.length-1);
-  }
-  // record the three indexes so that next time we make sure they weren't part of the last three
-  allProducts[randomIndex].setImage();
-  allProducts[randomIndex].views++;
+  var firstIndex = getRandomIndex();
+  var secondIndex = getRandomIndex();
+  var thirdIndex = getRandomIndex();
   
-  allProducts[secondRandomIndex].setImage();
-  allProducts[secondRandomIndex].views++;
+
+  allProducts[firstIndex].setImage();
+  allProducts[firstIndex].views++;
   
-  allProducts[thirdRandomIndex].setImage();
-  allProducts[thirdRandomIndex].views++;
+  allProducts[secondIndex].setImage();
+  allProducts[secondIndex].views++;
+  
+  allProducts[thirdIndex].setImage();
+  allProducts[thirdIndex].views++;
+  
 }
 
 getRandomProduct();
