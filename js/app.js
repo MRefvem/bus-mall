@@ -20,8 +20,6 @@ var views = [];
 
 var uniqueIndexArray = [];
 
-var productObjects = [];
-
 
 // Constructor Function
 function Product(src, alt, title){
@@ -31,7 +29,6 @@ function Product(src, alt, title){
   this.votes = 0;
   this.views = 0;
   allProducts.push(this);
-  productObjects.push(this);
 }
 
 
@@ -60,25 +57,20 @@ console.log('My original products array ', allProducts);
 
 
 // Putting JS into JSON
-// Step 1: turn the thing you want to save in Local Storage into JSON
+// Step 1: Putting our object instances into Local Storage/JSON
 var stringifiedProducts = JSON.stringify(allProducts);
 console.log('This is the JSON for the all Products array ', stringifiedProducts);
 
-// Step 2: set the item into Local Storage
+// Step 2: Set the item into Local Storage
 localStorage.setItem('Products', stringifiedProducts);
 
-// Step 3: to get something out of local storage, we are going to get an item
+// Step 3: Get Item
 var productsFromLocalStorage = localStorage.getItem('Products');
 console.log('This is something out of Local Storage ', productsFromLocalStorage);
 
-// Step 4: turn it back into JavaScript
+// Step 4: Back into JavaScript
 var productsTurnedBackIntoJavaScript = JSON.parse(productsFromLocalStorage);
 console.log('My parsed products', productsTurnedBackIntoJavaScript);
-
-// The returned products array is now a normal array of objects - it has lost its connection to the constructor
-// Remember, you will have to send each item in the array back through the constructor function
-
-productObjects.push(productsTurnedBackIntoJavaScript);
 
 
 // Our Method To Set Image To Page
