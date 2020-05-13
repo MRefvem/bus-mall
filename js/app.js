@@ -4,6 +4,8 @@
 // Global Variables
 var parent = document.getElementById('product');
 
+var parentList = document.getElementById('listParent');
+
 var allProducts = [];
 
 var currentRound = 0;
@@ -13,6 +15,11 @@ var maxRounds = 25;
 var names = [];
 
 var votes = [];
+
+var views = [];
+
+var uniqueIndexArray = [];
+
 
 // Constructor Function
 function Product(src, alt, title){
@@ -63,26 +70,38 @@ function randomNumber(min=0, max){
 }
 
 
+
 // Render Three Random Images To The DOM From Array
+// LAB 12: Update your algorithm so that new products are generated, confirm tht these products are not duplicates from the immediate previous set.
+function getRandomIndex(){
+  var index = randomNumber(0, allProducts.length-1);
+  while(uniqueIndexArray.includes(index)){
+     index = randomNumber(0, allProducts.length-1);
+  }
+  uniqueIndexArray.push(index);
+  if(uniqueIndexArray.length > 6){
+    uniqueIndexArray.shift();
+  }
+  return index;
+}
+
+
 function getRandomProduct(){
   parent.textContent = '';
-  var randomIndex = randomNumber(0, allProducts.length-1);
-  var secondRandomIndex = randomNumber(0, allProducts.length-1);
-  var thirdRandomIndex = randomNumber(0, allProducts.length-1);
-  while(randomIndex === secondRandomIndex){
-    secondRandomIndex = randomNumber(0, allProducts.length-1);
-  }
-  while(randomIndex === thirdRandomIndex || secondRandomIndex === thirdRandomIndex){
-    thirdRandomIndex = randomNumber(0, allProducts.length-1);
-  }
-  allProducts[randomIndex].setImage();
-  allProducts[randomIndex].views++;
+  var firstIndex = getRandomIndex();
+  var secondIndex = getRandomIndex();
+  var thirdIndex = getRandomIndex();
   
-  allProducts[secondRandomIndex].setImage();
-  allProducts[secondRandomIndex].views++;
+
+  allProducts[firstIndex].setImage();
+  allProducts[firstIndex].views++;
   
-  allProducts[thirdRandomIndex].setImage();
-  allProducts[thirdRandomIndex].views++;
+  allProducts[secondIndex].setImage();
+  allProducts[secondIndex].views++;
+  
+  allProducts[thirdIndex].setImage();
+  allProducts[thirdIndex].views++;
+  
 }
 
 getRandomProduct();
@@ -101,7 +120,6 @@ function eventHandler(){
     getRandomProduct();
   } else if (currentRound === maxRounds){
     console.log('max rounds', maxRounds);
-    renderList();
     parent.removeEventListener('click', eventHandler);
     makeNamesArray();
   }
@@ -117,15 +135,15 @@ parent.addEventListener('click', eventHandler);
 
 function renderList(){
   var unorderedList = document.createElement('ul');
-  var title = document.createElement('p');
-  title.textContent = ('Totals');
+  var title = document.createElement('h2');
+  title.textContent = ('Results');
   unorderedList.appendChild(title);
   for (var i = 0; i < allProducts.length; i++){
     var listItem = document.createElement('li');
-    listItem.textContent = (`${allProducts[i].title} had ${allProducts[i].votes} votes and was shown ${allProducts[i].views} times`);
+    listItem.textContent = (`- ${allProducts[i].title} had ${allProducts[i].votes} votes and was shown ${allProducts[i].views} times`);
     unorderedList.appendChild(listItem);
   }
-  parent.appendChild(unorderedList);
+  parentList.appendChild(unorderedList);
 };
 
 
@@ -137,10 +155,15 @@ function makeNamesArray(){
   for(var i = 0; i < allProducts.length; i++){
     names.push(allProducts[i].title);
     votes.push(allProducts[i].votes);
+    views.push(allProducts[i].views);
   }
   generateChart();
+  renderList();
 }
 
+
+// My Chart
+// Needs to display the number of times a product was viewed
 function generateChart(){
   var ctx = document.getElementById('myChart').getContext('2d');
   var myChart = new Chart(ctx, {
@@ -156,7 +179,20 @@ function generateChart(){
                   'rgba(255, 206, 86, 0.2)',
                   'rgba(75, 192, 192, 0.2)',
                   'rgba(153, 102, 255, 0.2)',
-                  'rgba(255, 159, 64, 0.2)'
+                  'rgba(255, 159, 64, 0.2)',
+                  'rgba(255, 99, 132, 0.2)',
+                  'rgba(54, 162, 235, 0.2)',
+                  'rgba(255, 206, 86, 0.2)',
+                  'rgba(75, 192, 192, 0.2)',
+                  'rgba(153, 102, 255, 0.2)',
+                  'rgba(255, 159, 64, 0.2)',
+                  'rgba(255, 99, 132, 0.2)',
+                  'rgba(54, 162, 235, 0.2)',
+                  'rgba(255, 206, 86, 0.2)',
+                  'rgba(75, 192, 192, 0.2)',
+                  'rgba(153, 102, 255, 0.2)',
+                  'rgba(255, 159, 64, 0.2)',
+                  'rgba(255, 99, 132, 0.2)'
               ],
               borderColor: [
                   'rgba(255, 99, 132, 1)',
@@ -164,12 +200,74 @@ function generateChart(){
                   'rgba(255, 206, 86, 1)',
                   'rgba(75, 192, 192, 1)',
                   'rgba(153, 102, 255, 1)',
-                  'rgba(255, 159, 64, 1)'
+                  'rgba(255, 159, 64, 1)',
+                  'rgba(255, 99, 132, 1)',
+                  'rgba(54, 162, 235, 1)',
+                  'rgba(255, 206, 86, 1)',
+                  'rgba(75, 192, 192, 1)',
+                  'rgba(153, 102, 255, 1)',
+                  'rgba(255, 159, 64, 1)',
+                  'rgba(255, 99, 132, 1)',
+                  'rgba(54, 162, 235, 1)',
+                  'rgba(255, 206, 86, 1)',
+                  'rgba(75, 192, 192, 1)',
+                  'rgba(153, 102, 255, 1)',
+                  'rgba(255, 159, 64, 1)',
+                  'rgba(255, 99, 132, 1)'
               ],
               borderWidth: 1
-          }]
+          },
+          {
+            label: '# of Views',
+            data: views,
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)',
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)',
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)',
+                'rgba(255, 99, 132, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)',
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)',
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)',
+                'rgba(255, 99, 132, 1)'
+            ],
+            borderWidth: 1
+        }]
       },
       options: {
+        responsive: true,
+        maintainAspectRatio: false,
           scales: {
               yAxes: [{
                   ticks: {
