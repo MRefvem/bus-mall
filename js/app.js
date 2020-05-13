@@ -20,6 +20,8 @@ var views = [];
 
 var uniqueIndexArray = [];
 
+var productObjects = [];
+
 
 // Constructor Function
 function Product(src, alt, title){
@@ -29,6 +31,7 @@ function Product(src, alt, title){
   this.votes = 0;
   this.views = 0;
   allProducts.push(this);
+  productObjects.push(this);
 }
 
 
@@ -53,6 +56,30 @@ new Product('img/unicorn.jpg', 'unicorn', 'Unicorn Meat');
 new Product('img/usb.gif', 'usb', 'USB Lizard Tail');
 new Product('img/water-can.jpg', 'water-can', 'Novelty Water-Can');
 
+console.log('My original products array ', allProducts);
+
+
+// Putting JS into JSON
+// Step 1: turn the thing you want to save in Local Storage into JSON
+var stringifiedProducts = JSON.stringify(allProducts);
+console.log('This is the JSON for the all Products array ', stringifiedProducts);
+
+// Step 2: set the item into Local Storage
+localStorage.setItem('Products', stringifiedProducts);
+
+// Step 3: to get something out of local storage, we are going to get an item
+var productsFromLocalStorage = localStorage.getItem('Products');
+console.log('This is something out of Local Storage ', productsFromLocalStorage);
+
+// Step 4: turn it back into JavaScript
+var productsTurnedBackIntoJavaScript = JSON.parse(productsFromLocalStorage);
+console.log('My parsed products', productsTurnedBackIntoJavaScript);
+
+// The returned products array is now a normal array of objects - it has lost its connection to the constructor
+// Remember, you will have to send each item in the array back through the constructor function
+
+productObjects.push(productsTurnedBackIntoJavaScript);
+
 
 // Our Method To Set Image To Page
 Product.prototype.setImage = function(){
@@ -70,9 +97,7 @@ function randomNumber(min=0, max){
 }
 
 
-
 // Render Three Random Images To The DOM From Array
-// LAB 12: Update your algorithm so that new products are generated, confirm tht these products are not duplicates from the immediate previous set.
 function getRandomIndex(){
   var index = randomNumber(0, allProducts.length-1);
   while(uniqueIndexArray.includes(index)){
@@ -126,13 +151,11 @@ function eventHandler(){
 }
 
 
-
 // Event Listener
 parent.addEventListener('click', eventHandler);
 
 
-// Lab 11 Problem 4 - Results after voting has concluded
-
+// Function: Render List
 function renderList(){
   var unorderedList = document.createElement('ul');
   var title = document.createElement('h2');
@@ -147,10 +170,8 @@ function renderList(){
 };
 
 
-
-// Function: set up empty names and votes arrays
+// Function: set up empty names, votes and views arrays
 // Loop over all of my items and make an array of just the names of my items
-
 function makeNamesArray(){
   for(var i = 0; i < allProducts.length; i++){
     names.push(allProducts[i].title);
@@ -278,6 +299,3 @@ function generateChart(){
       }
   });
 }
-
-
-// My Chart
