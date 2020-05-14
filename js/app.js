@@ -21,56 +21,57 @@ var views = [];
 var uniqueIndexArray = [];
 
 
+// check our LS to see if we have an array of products
+
+// Putting JS into JSON
+if(localStorage.getItem('Products') === null){
+  new Product('img/bag.jpg', 'bag', 'R2D2 Luggage Bag', 0, 0);
+  new Product('img/banana.jpg', 'banana', 'Banana Slicer', 0, 0);
+  new Product('img/bathroom.jpg', 'bathroom', 'Bathroom iPad Stand', 0, 0);
+  new Product('img/boots.jpg', 'boots', 'Sandal RainBoots', 0, 0);
+  new Product('img/breakfast.jpg', 'breakfast', 'Breakfast Machine', 0, 0);
+  new Product('img/bubblegum.jpg', 'bubblegum', 'Meatball Bubblegum', 0, 0);
+  new Product('img/chair.jpg', 'chair', 'Novelty Chair', 0, 0);
+  new Product('img/cthulhu.jpg', 'cthulhu', 'Cthulhu Alien', 0, 0);
+  new Product('img/dog-duck.jpg', 'dog-duck', 'Dog-Duck Beak', 0, 0);
+  new Product('img/dragon.jpg', 'dragon', 'Dragon Meat', 0, 0);
+  new Product('img/pen.jpg', 'pen', 'Pen Utensil Caps', 0, 0);
+  new Product('img/pet-sweep.jpg', 'pet-sweep', 'Pet-Sweeper', 0, 0);
+  new Product('img/scissors.jpg', 'scissors', 'Pizza Scissors', 0, 0);
+  new Product('img/shark.jpg', 'shark', 'Shark Sleeping Bag', 0, 0);
+  new Product('img/sweep.png', 'sweep', 'Baby Sweep', 0, 0);
+  new Product('img/tauntaun.jpg', 'tauntaun', 'Tauntaun Sleeping Bag', 0, 0);
+  new Product('img/unicorn.jpg', 'unicorn', 'Unicorn Meat', 0, 0);
+  new Product('img/usb.gif', 'usb', 'USB Lizard Tail', 0, 0);
+  new Product('img/water-can.jpg', 'water-can', 'Novelty Water-Can', 0, 0);
+} else {
+  debugger;
+  var productsFromLocalStorage = localStorage.getItem('Products');
+  var productsTurnedBackIntoJavaScript = JSON.parse(productsFromLocalStorage);
+  console.log('this is my parsed array', productsTurnedBackIntoJavaScript);
+  for (var i = 0; i < productsTurnedBackIntoJavaScript.length; i++){
+    new Product(
+      productsTurnedBackIntoJavaScript[i].filePath,
+      productsTurnedBackIntoJavaScript[i].alt, 
+      productsTurnedBackIntoJavaScript[i].title, 
+      productsTurnedBackIntoJavaScript[i].votes,
+      productsTurnedBackIntoJavaScript[i].views); 
+  }
+}  
+
+
+
 // Constructor Function
-function Product(src, alt, title){
+function Product(src, alt, title, votes, views){
   this.filePath = src;
   this.alt = alt;
   this.title = title;
-  this.votes = 0;
-  this.views = 0;
+  this.votes = votes;
+  this.views = views;
   allProducts.push(this);
 }
 
 
-// Object Instances
-new Product('img/bag.jpg', 'bag', 'R2D2 Luggage Bag');
-new Product('img/banana.jpg', 'banana', 'Banana Slicer');
-new Product('img/bathroom.jpg', 'bathroom', 'Bathroom iPad Stand');
-new Product('img/boots.jpg', 'boots', 'Sandal RainBoots');
-new Product('img/breakfast.jpg', 'breakfast', 'Breakfast Machine');
-new Product('img/bubblegum.jpg', 'bubblegum', 'Meatball Bubblegum');
-new Product('img/chair.jpg', 'chair', 'Novelty Chair');
-new Product('img/cthulhu.jpg', 'cthulhu', 'Cthulhu Alien');
-new Product('img/dog-duck.jpg', 'dog-duck', 'Dog-Duck Beak');
-new Product('img/dragon.jpg', 'dragon', 'Dragon Meat');
-new Product('img/pen.jpg', 'pen', 'Pen Utensil Caps');
-new Product('img/pet-sweep.jpg', 'pet-sweep', 'Pet-Sweeper');
-new Product('img/scissors.jpg', 'scissors', 'Pizza Scissors');
-new Product('img/shark.jpg', 'shark', 'Shark Sleeping Bag');
-new Product('img/sweep.png', 'sweep', 'Baby Sweep');
-new Product('img/tauntaun.jpg', 'tauntaun', 'Tauntaun Sleeping Bag');
-new Product('img/unicorn.jpg', 'unicorn', 'Unicorn Meat');
-new Product('img/usb.gif', 'usb', 'USB Lizard Tail');
-new Product('img/water-can.jpg', 'water-can', 'Novelty Water-Can');
-
-console.log('My original products array ', allProducts);
-
-
-// Putting JS into JSON
-// Step 1: Putting our object instances into Local Storage/JSON
-var stringifiedProducts = JSON.stringify(allProducts);
-console.log('This is the JSON for the all Products array ', stringifiedProducts);
-
-// Step 2: Set the item into Local Storage
-localStorage.setItem('Products', stringifiedProducts);
-
-// Step 3: Get Item
-var productsFromLocalStorage = localStorage.getItem('Products');
-console.log('This is something out of Local Storage ', productsFromLocalStorage);
-
-// Step 4: Back into JavaScript
-var productsTurnedBackIntoJavaScript = JSON.parse(productsFromLocalStorage);
-console.log('My parsed products', productsTurnedBackIntoJavaScript);
 
 
 // Our Method To Set Image To Page
@@ -93,7 +94,7 @@ function randomNumber(min=0, max){
 function getRandomIndex(){
   var index = randomNumber(0, allProducts.length-1);
   while(uniqueIndexArray.includes(index)){
-     index = randomNumber(0, allProducts.length-1);
+    index = randomNumber(0, allProducts.length-1);
   }
   uniqueIndexArray.push(index);
   if(uniqueIndexArray.length > 6){
@@ -109,7 +110,7 @@ function getRandomProduct(){
   var secondIndex = getRandomIndex();
   var thirdIndex = getRandomIndex();
   
-
+  
   allProducts[firstIndex].setImage();
   allProducts[firstIndex].views++;
   
@@ -130,6 +131,7 @@ function eventHandler(){
   for(var i = 0; i < allProducts.length; i++){
     if(titleOfProductClicked === allProducts[i].title){
       allProducts[i].votes++;
+      // save our allProducts array into local storage
     }
   }
   currentRound++;
@@ -140,6 +142,8 @@ function eventHandler(){
     parent.removeEventListener('click', eventHandler);
     makeNamesArray();
   }
+  var stringifiedProducts = JSON.stringify(allProducts);
+  localStorage.setItem('Products', stringifiedProducts);
 }
 
 
